@@ -1,0 +1,62 @@
+body{
+    background-color: lightgray;
+}
+header{
+    text-align: center;
+    padding: 20px;
+    background-color: black;
+    color: white;
+}
+
+main{
+    display: flex;
+    flex-direction: row;
+}
+#list{
+    flex: 3;
+    padding: 16px 0 20px 0;
+}
+#form{
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-left: 6px solid black;
+    border-bottom: 6px solid black;
+    padding: 16px 16px 20px 16px;
+    box-shadow: -10px 25px 10px 5px #aaaaaaaa;
+    background-color: rgb(212, 212, 204);
+}
+.submit-div{
+    text-align: center;
+}
+.submit-div button{
+    background-color: black;
+    color: white;
+    border-color: black;
+    width: 180px;
+    border-radius: 20px;
+}
+.submit-div button:hover{
+    background-color: grey;
+    border-color: grey;
+}
+#iImportant{
+    font-size: 25px;
+    color: gray;
+    cursor: pointer;
+}
+#iImportant.fas{
+    color: red;
+}
+#list button{
+    background-color: black;
+    color: white;
+    border-color: black;
+    width: 180px;
+    border-radius: 20px;
+}
+#list button:hover{
+    background-color: grey;
+    border-color: grey;
+}
