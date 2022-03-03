@@ -2,20 +2,40 @@ let nonImportantClasses = "far fa-star"
 let importantClasses = "fas fa-star"
 let varIsImportant = false
 let varFormHidden = true
+
 function displayTask(task){
     let syntax =`<div id="row-task" style="color: ${task.color}; background-color: rgba(234, 245, 244, 0.568);">
-                <div id="left-task">
-                    <h3>${task.title}</h3>
-                    <p>${task.description}</p>
-                </div>
-                <div id="right-task">
-                <label>Due Date: ${task.dueDate}</label>
-                <label>Location: ${task.location}</label>
-                <label>Contact: ${task.contact}</label>
-                </div>
-                <button onclick="this.parentNode.remove()">Remove</button>
-                </div>`
+    <div id="left-task">
+    <h3>${task.title}</h3>
+    <p>${task.description}</p>
+    </div>
+    <div id="right-task">
+    <label>Due Date: ${task.dueDate}</label>
+    <label>Location: ${task.location}</label>
+    <label>Contact: ${task.contact}</label>
+    </div>
+    <button onclick="this.parentNode.remove()">Remove</button>
+    </div>`
     $('#tasks-list').append(syntax)
+}
+
+function retreiveTask(){
+    $.ajax({
+        type: 'Get',
+        url: 'https://fsdiapi.azurewebsites.net/api/tasks',
+        success: function(response){
+            console.log(`All Data: ${response}`)
+            let list = JSON.parse(response)
+            for(i=0;i<list.length;i++){
+                if(list[i].name === 'TreySch'){
+                    displayTask(list[i])
+                }
+            }
+        },
+        error: function(error){
+            console.log(error)
+        }
+    })
 }
 
 function toggleImportant(){
@@ -91,6 +111,19 @@ function saveTask(e){
     }
     clearFields()
     let newTask = new Task(title, varIsImportant, dueDate, contact, location, description, color)
+    let dataStr = JSON.stringify(newTask)
+    $.ajax({
+        type: 'POST',
+        url: 'https://fsdiapi.azurewebsites.net/api/tasks/',
+        data: dataStr,
+        contentType: 'application/json',
+        success: function(response){
+            console.log(response)
+        },
+        error: function(error){
+            console.log(error)
+        }
+    })
     displayTask(newTask)
 }
 
@@ -99,6 +132,7 @@ function init(){
     $("#iImportant").click(toggleImportant)
     $("#showHideBtn").click(toggleForm)
     $("#saveBtn").click(saveTask)
+    retreiveTask()
 }
 
 

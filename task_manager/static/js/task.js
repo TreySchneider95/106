@@ -7,5 +7,6 @@ class Task{
         this.location = location
         this.description = description
         this.color = color
+        this.name = 'TreySch'
     }
 }
